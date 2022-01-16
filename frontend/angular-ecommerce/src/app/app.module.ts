@@ -13,6 +13,7 @@ import { ProductService } from './service/product.service';
     ProductListComponent
   ],
   imports: [
+    RouterModule.forRoot(routes),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
