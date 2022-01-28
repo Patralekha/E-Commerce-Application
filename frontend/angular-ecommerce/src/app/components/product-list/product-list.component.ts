@@ -11,7 +11,7 @@ import { ProductService } from 'src/app/service/product.service';
 export class ProductListComponent implements OnInit {
 
   products: Product[] = [];
-  //currentCategoryId: number ;
+  currentCategoryId: number ;
   constructor(private productService:ProductService,
               private route: ActivatedRoute) { }
 
@@ -25,16 +25,17 @@ export class ProductListComponent implements OnInit {
   listProducts(){
     //check if id parameter is available
     const hasCategoryId : boolean= this.route.snapshot.paramMap.has('id');
-    var currentCategoryId: number;
+    
 
     if(hasCategoryId){
       //get categoryId and convert it to a number
-      currentCategoryId = this.route.snapshot.paramMap.get('id');
+      this.currentCategoryId = Number(this.route.snapshot.paramMap.get('id'));
+      //console.log(this.currentCategoryId);
     }else{
       //no category id available hence default to 1
-      currentCategoryId=1;
+      this.currentCategoryId = 1;
     }
-    this.productService.getProductList(currentCategoryId).subscribe( data => {this.products = data});
+    this.productService.getProductList(this.currentCategoryId).subscribe( data => {this.products = data});
   }
 
 }
